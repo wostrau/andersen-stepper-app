@@ -22,7 +22,6 @@ export const Stepper: React.FC<StepperProps> = ({
         <Typography sx={stepper.stepperTypography}>Back</Typography>
       </Button>
 
-      {/* step indicator: */}
       <Typography sx={stepper.stepperTypography}>
         Step {activeStep} of {steps}
       </Typography>

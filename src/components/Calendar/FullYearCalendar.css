@@ -1,0 +1,63 @@
+.calendar-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.month {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  width: 30%;
+  box-sizing: border-box;
+}
+
+.month h3 {
+  text-align: center;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day {
+  width: calc(100% / 7);
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day.selected,
+.day.in-middle {
+  background-color: #1bbdd4;
+  border-radius: 50%;
+}
+
+.day.in-middle {
+  /* opacity: 0.3; */
+  background-color: #eefcfd;
+  border-radius: 0%;
+}
+
+.day span {
+  display: block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+}
+
+.day.prev-next-month {
+  color: #ccc;
+  cursor: default;
+}
+
+.day.prev-next-month span {
+  width: auto;
+  height: auto;
+  line-height: normal;
+}

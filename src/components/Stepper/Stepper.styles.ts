@@ -13,7 +13,6 @@ export const stepper = {
     width: '576px',
     top: '100px',
     gap: '0',
-    //left: '792px',
   },
   stepperButton: {
     textTransform: 'none',
