@@ -1,0 +1,62 @@
+export const styles = {
+  prevNextMonthDay: {
+    textAlign: 'center',
+    color: '#b4bac5',
+    cursor: 'default',
+  },
+  day: {
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    color: '#0d323f',
+    mb: 0.5,
+  },
+  dayTitle: {
+    textAlign: 'center',
+    fontSize: '16px',
+  },
+  selectedDate: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#b0e9f1',
+    borderRadius: '50%',
+    fontWeight: 700,
+  },
+  currentDate: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1bbdd4',
+    borderRadius: '50%',
+    color: '#ffffff',
+    fontWeight: 700,
+  },
+  nonWorking: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#edeef1',
+    borderRadius: '4px',
+  },
+  currentWeek: {
+    backgroundColor: '#eefcfd',
+  },
+  startCurrentWeek: {
+    borderTopLeftRadius: '4px',
+    borderBottomLeftRadius: '4px',
+  },
+  endCurrentWeek: {
+    borderTopRightRadius: '4px',
+    borderBottomRightRadius: '4px',
+  },
+};
