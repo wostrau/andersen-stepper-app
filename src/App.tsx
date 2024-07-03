@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import { MonthTableView } from './components/MonthTable/MonthTableView';
+import { MonthTableView } from './components/MonthTableView/MonthTableView';
 import { Box, Button } from '@mui/material';
 import { Calendar } from './components/NewCalendar';
 import { addMonths, format, getYear, startOfMonth, subMonths } from 'date-fns';
 
 function App() {
   const currentDate = new Date();
-  const [yearView, setYearView] = useState<boolean>(true);
+  const [yearView, setYearView] = useState<boolean>(false);
 
   const [selectedYear, setSelectedYear] = useState<number>(
     getYear(currentDate)
@@ -94,11 +94,6 @@ function App() {
           onDateSelect={handleDateSelect}
           nonWorkingDates={nonWorkingDates}
         />
-        // selectedDate={selectedDate}
-        // month={selectedMonth}
-        // nonWorkingDays={nonWorkingDays}
-        // appointments={appointments}
-        // onDateClick={handleDateSelect}
       )}
     </div>
   );

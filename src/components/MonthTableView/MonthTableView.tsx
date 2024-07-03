@@ -1,14 +1,9 @@
 import React from 'react';
-import MonthTable from './MonthTable';
 import { parseISO } from 'date-fns';
-import './MonthTable.css';
+import './MonthTable/MonthTable.css';
 import { Grid } from '@mui/material';
-
-interface Appointment {
-  appointmentDate: Date;
-  appointmentTime: string;
-  patientName: string;
-}
+import { Appointment } from './MonthTableView.types';
+import { MonthTableMaterial } from './MonthTableMaterial/MonthTableMaterial';
 
 interface MonthTableViewProps {
   month: Date;
@@ -23,7 +18,6 @@ export const MonthTableView: React.FC<MonthTableViewProps> = ({
   onDateSelect,
   nonWorkingDates,
 }) => {
-
   const appointments: Appointment[] = [
     {
       appointmentDate: parseISO('2024-07-18'),
@@ -44,12 +38,12 @@ export const MonthTableView: React.FC<MonthTableViewProps> = ({
 
   const handleDateSelect = (date: Date) => {
     onDateSelect(date);
-    console.log('Selected Date:', date);
+    console.log('Selected Date >>>', date);
   };
 
   return (
     <Grid container>
-      <MonthTable
+      <MonthTableMaterial
         month={month}
         selectedDate={selectedDate}
         appointments={appointments}

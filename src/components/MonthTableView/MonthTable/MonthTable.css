@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.calendar {
+  width: 1409.8px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 1px solid #d7dae0;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+}
+
+th {
+  width: calc(100% - 8px);
+  height: 40px;
+}
+
+td {
+  width: calc(100% - 8px);
+  height: 149px;
+}
+
+.cell {
+  color: #1f6a7f;
+  position: relative;
+  padding: 2px;
+}
+
+.cell.disabled {
+  color: #8b94a5;
+}
+
+.cell.non-working {
+  background-color: #f6f7f9;
+  color: #6c768b;
+  font-weight: 500;
+}
+
+.date {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 14px;
+  height: 21px;
+  margin-bottom: 4px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 14px;
+}
+
+.patient-box {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.patient-time {
+  color: #8b94a5;
+}
+
+.appointments-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.appointment-box {
+  /* top: 20px; */
+  background-color: #add8e6;
+  padding-left: 8px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  border-radius: 4px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.more-appointments {
+  /* background-color: #edeef1; */
+  font-size: 14px;
+  border-radius: 4px;
+  /* width: 100%; */
+  height: 40px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.more-title {
+  background-color: #edeef1;
+  font-size: 14px;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected {
+  border: 2px solid #1bbdd4;
+  border-radius: 4px;
+  /* box-sizing: border-box; */
+}
