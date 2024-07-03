@@ -4,5 +4,6 @@ export const styles = {
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     gap: '24px',
+    maxWidth: '1280px',
   },
 };

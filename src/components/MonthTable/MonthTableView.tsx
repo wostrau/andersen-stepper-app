@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MonthTable from './MonthTable';
 import { parseISO } from 'date-fns';
 import './MonthTable.css';
+import { Grid } from '@mui/material';
 
 interface Appointment {
   appointmentDate: Date;
@@ -9,42 +10,52 @@ interface Appointment {
   patientName: string;
 }
 
-export const MonthTableView: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+interface MonthTableViewProps {
+  month: Date;
+  selectedDate: Date | null;
+  onDateSelect: (day: Date) => void;
+  nonWorkingDates: Date[];
+}
 
-  const nonWorkingDays = ['2024-06-01', '2024-06-07'].map((date) =>
-    parseISO(date)
-  );
+export const MonthTableView: React.FC<MonthTableViewProps> = ({
+  month,
+  selectedDate,
+  onDateSelect,
+  nonWorkingDates,
+}) => {
+
   const appointments: Appointment[] = [
     {
-      appointmentDate: parseISO('2024-06-21'),
+      appointmentDate: parseISO('2024-07-18'),
       appointmentTime: '10:00',
       patientName: 'John Doe',
     },
     {
-      appointmentDate: parseISO('2024-06-21'),
+      appointmentDate: parseISO('2024-07-18'),
       appointmentTime: '14:00',
       patientName: 'Jane Smith',
     },
     {
-      appointmentDate: parseISO('2024-06-22'),
+      appointmentDate: parseISO('2024-07-19'),
       appointmentTime: '09:00',
       patientName: 'Alice Johnson',
     },
   ];
 
-  const handleDateClick = (date: Date) => {
-    setSelectedDate(date);
+  const handleDateSelect = (date: Date) => {
+    onDateSelect(date);
     console.log('Selected Date:', date);
   };
 
   return (
-    <MonthTable
-      selectedDate={selectedDate}
-      month={new Date('2024-06-01')}
-      nonWorkingDays={nonWorkingDays}
-      appointments={appointments}
-      onDateClick={handleDateClick}
-    />
+    <Grid container>
+      <MonthTable
+        month={month}
+        selectedDate={selectedDate}
+        appointments={appointments}
+        nonWorkingDays={nonWorkingDates}
+        onDateClick={handleDateSelect}
+      />
+    </Grid>
   );
 };

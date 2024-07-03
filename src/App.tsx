@@ -1,66 +1,62 @@
-// import { useEffect, useState } from 'react';
-// import { Box } from '@mui/material';
-// import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
 import './App.css';
 
-//import { Calendar } from './components/NewCalendar';
 import { MonthTableView } from './components/MonthTable/MonthTableView';
-// import { getMonth } from 'date-fns';
-// import { StepperPage } from './pages/StepperPage';
-// import { CalendarReact } from './components/CalendarReact/CalendarReact';
-// import { DateCalendarMonth } from './components/CalendarMaterial/DateCalendarMonth';
-// import FullYearCalendar from './components/Calendar/FullYearCalendar';
-// import FullYearCalendarAdjusted from './components/CalendarAdjusted/CalendarAdjusted';
-// import FullYearCalendarMaterial from './components/CalendarMaterial/FullYearCalendarMaterial';
-// import DateCalendarMaterial from './components/DateCalendar/DateCalendarMaterial';
-// import { SchedulePage } from './pages/SchedulePage';
+import { Box, Button } from '@mui/material';
+import { Calendar } from './components/NewCalendar';
+import { addMonths, format, getYear, startOfMonth, subMonths } from 'date-fns';
 
 function App() {
-  // const [selectedYear, setSelectedYear] = useState<number>(2024);
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  // const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
+  const currentDate = new Date();
+  const [yearView, setYearView] = useState<boolean>(true);
 
-  // const handleDateSelect = (date: Date) => {
-  //   setSelectedDate(date);
-  //   console.log('Date >>>', date);
-  // };
+  const [selectedYear, setSelectedYear] = useState<number>(
+    getYear(currentDate)
+  );
+  const [selectedMonth, setSelectedMonth] = useState<Date>(
+    startOfMonth(currentDate)
+  );
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
 
-  // useEffect(() => {
-  //   const mockNonWorkingDates = [
-  //     new Date(2024, 5, 1),
-  //     new Date(2024, 6, 4),
-  //     new Date(2024, 11, 25),
-  //   ];
-  //   setNonWorkingDates(mockNonWorkingDates);
-  // }, []);
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+    console.log('Date >>>', date);
+  };
 
-  // const btnColor = '#0d323f';
-  // const btnStyles = {
-  //   m: 1,
-  //   color: btnColor,
-  //   border: `1px solid ${btnColor}`,
-  //   borderRadius: '4px',
-  // };
+  useEffect(() => {
+    const mockNonWorkingDates = [
+      new Date(2024, 5, 1),
+      new Date(2024, 6, 4),
+      new Date(2024, 11, 25),
+    ];
+    setNonWorkingDates(mockNonWorkingDates);
+  }, []);
+
+  const btnColor = '#0d323f';
+  const btnStyles = {
+    m: 1,
+    color: btnColor,
+    border: `1px solid ${btnColor}`,
+    borderRadius: '4px',
+  };
 
   return (
     <div className='App'>
-      {/* <StepperPage /> */}
-      {/* <CalendarReact /> */}
-      {/* <DateCalendarMonth /> */}
-      {/* <FullYearCalendar /> */}
-      {/* <FullYearCalendarMaterial /> */}
-      {/* <DateCalendarMaterial/> */}
-      {/* <SchedulePage /> */}
-      {/* <FullYearCalendarAdjusted /> */}
-      {/* <Box sx={{ mb: 7 }}>
+      <Box sx={{ mb: 7 }}>
         <Button
           variant='outlined'
           sx={btnStyles}
-          onClick={() => setSelectedYear((prevYear) => prevYear - 1)}
+          onClick={
+            yearView
+              ? () => setSelectedYear((prevYear) => prevYear - 1)
+              : () => setSelectedMonth((prevMonth) => subMonths(prevMonth, 1))
+          }
         >
-          Prev Year
+          {yearView ? 'Prev Year' : 'Prev Month'}
         </Button>
         <Box
+          onClick={() => setYearView((prevView) => !prevView)}
           component='span'
           sx={{
             m: 1,
@@ -69,23 +65,41 @@ function App() {
             fontWeight: '900',
           }}
         >
-          {selectedYear}
+          {yearView ? selectedYear : format(selectedMonth, 'MMMM')}
         </Box>
         <Button
           variant='outlined'
           sx={btnStyles}
-          onClick={() => setSelectedYear((prevYear) => prevYear + 1)}
+          onClick={
+            yearView
+              ? () => setYearView((prevView) => !prevView)
+              : () => setSelectedMonth((prevMonth) => addMonths(prevMonth, 1))
+          }
         >
-          Next Year
+          {yearView ? 'Next Year' : 'Next Month'}
         </Button>
       </Box>
-      <Calendar
-        year={selectedYear}
-        selectedDate={selectedDate}
-        onDateSelect={handleDateSelect}
-        nonWorkingDates={nonWorkingDates}
-      /> */}
-        <MonthTableView />
+      {yearView && (
+        <Calendar
+          year={selectedYear}
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
+          nonWorkingDates={nonWorkingDates}
+        />
+      )}
+      {!yearView && (
+        <MonthTableView
+          month={selectedMonth}
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
+          nonWorkingDates={nonWorkingDates}
+        />
+        // selectedDate={selectedDate}
+        // month={selectedMonth}
+        // nonWorkingDays={nonWorkingDays}
+        // appointments={appointments}
+        // onDateClick={handleDateSelect}
+      )}
     </div>
   );
 }
