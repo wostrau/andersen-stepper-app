@@ -23,13 +23,17 @@ export const MonthTableMaterial: React.FC<MonthTableProps> = ({
   return (
     <TableContainer
       component={Paper}
-      sx={{ minWidth: 1410, minHeight: 785 }}
+      elevation={0}
+      sx={{ minWidth: 1410, minHeight: 785, borderRadius: 1, overflow: 'hidden',
+        //border: '1px solid #d7dae0',
+      }}
     >
       <Table
         sx={{
           tableLayout: 'fixed',
-          borderCollapse: 'collapse',
-          border: '1px solid #d7dae0',
+          // borderCollapse: 'collapse',
+           borderCollapse: 'collapse', borderSpacing: 0
+          // border: '1px solid #d7dae0',
         }}
       >
         <TableHead>
@@ -40,9 +44,10 @@ export const MonthTableMaterial: React.FC<MonthTableProps> = ({
                 align='center'
                 sx={{
                   height: 40,
-                  padding: 0,
+                  // padding: 0,
                   fontWeight: 400,
                   border: '1px solid #d7dae0',
+                  padding: '1px', borderBottom: '1px solid #d7dae0'
                 }}
               >
                 {day}
