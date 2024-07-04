@@ -4,34 +4,66 @@ import './App.css';
 import { MonthTableView } from './components/MonthTableView/MonthTableView';
 import { Box, Button } from '@mui/material';
 import { Calendar } from './components/NewCalendar';
-import { addMonths, format, getYear, startOfMonth, subMonths } from 'date-fns';
+import {
+  addMonths,
+  format,
+  getYear,
+  parseISO,
+  startOfMonth,
+  subMonths,
+} from 'date-fns';
+import { Appointment } from './components/MonthTableView/MonthTableView.types';
 
 function App() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+
   const currentDate = new Date();
   const [yearView, setYearView] = useState<boolean>(false);
-
   const [selectedYear, setSelectedYear] = useState<number>(
     getYear(currentDate)
   );
   const [selectedMonth, setSelectedMonth] = useState<Date>(
     startOfMonth(currentDate)
   );
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-    console.log('Date >>>', date);
-  };
 
   useEffect(() => {
     const mockNonWorkingDates = [
       new Date(2024, 5, 1),
       new Date(2024, 6, 4),
+      new Date(2024, 7, 1),
       new Date(2024, 11, 25),
     ];
+
     setNonWorkingDates(mockNonWorkingDates);
   }, []);
+
+  useEffect(() => {
+    const appointments: Appointment[] = [
+      {
+        appointmentDate: parseISO('2024-07-18'),
+        appointmentTime: '10:00',
+        patientName: 'John Doe',
+      },
+      {
+        appointmentDate: parseISO('2024-07-18'),
+        appointmentTime: '14:00',
+        patientName: 'Jane Smith',
+      },
+      {
+        appointmentDate: parseISO('2024-07-19'),
+        appointmentTime: '09:00',
+        patientName: 'Alice Johnson',
+      },
+    ];
+
+    setAppointments(appointments);
+  }, []);
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+  };
 
   const btnColor = '#0d323f';
   const btnStyles = {
@@ -93,6 +125,7 @@ function App() {
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
           nonWorkingDates={nonWorkingDates}
+          appointments={appointments}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .calendar {
   width: 1409.8px;
@@ -84,7 +84,7 @@ td {
 }
 
 .appointment-box {
-  /* top: 20px; */
+  top: 20px;
   background-color: #add8e6;
   padding-left: 8px;
   margin-bottom: 4px;
@@ -97,10 +97,10 @@ td {
 }
 
 .more-appointments {
-  /* background-color: #edeef1; */
+  background-color: #edeef1;
   font-size: 14px;
   border-radius: 4px;
-  /* width: 100%; */
+  width: 100%;
   height: 40px;
   font-weight: 700;
   display: flex;
@@ -123,5 +123,5 @@ td {
 .selected {
   border: 2px solid #1bbdd4;
   border-radius: 4px;
-  /* box-sizing: border-box; */
-}
+  box-sizing: border-box;
+} */

@@ -1,6 +1,4 @@
 import React from 'react';
-import './MonthTableMaterial.css';
-import { WeekRowMaterial } from '../WeekRowMaterial/WeekRowMaterial';
 import {
   TableContainer,
   Paper,
@@ -10,8 +8,9 @@ import {
   TableRow,
   TableBody,
 } from '@mui/material';
-import { useMonthWeeks } from './MonthTableMaterial.utils';
+import { WeekRowMaterial } from '../WeekRowMaterial/WeekRowMaterial';
 import { MonthTableProps } from './MonthTableMaterial.types';
+import { useMonthWeeks } from './MonthTableMaterial.utils';
 
 export const MonthTableMaterial: React.FC<MonthTableProps> = ({
   month,
@@ -24,16 +23,27 @@ export const MonthTableMaterial: React.FC<MonthTableProps> = ({
   return (
     <TableContainer
       component={Paper}
-      // className='calendar'
+      sx={{ minWidth: 1410, minHeight: 785 }}
     >
-      <Table sx={{ width: 1409.8 }}>
+      <Table
+        sx={{
+          tableLayout: 'fixed',
+          borderCollapse: 'collapse',
+          border: '1px solid #d7dae0',
+        }}
+      >
         <TableHead>
           <TableRow>
             {WEEK_DAYS_LONG.map((day) => (
               <TableCell
                 key={day}
                 align='center'
-                sx={{ height: 40, padding: 0, fontWeight: 700 }}
+                sx={{
+                  height: 40,
+                  padding: 0,
+                  fontWeight: 400,
+                  border: '1px solid #d7dae0',
+                }}
               >
                 {day}
               </TableCell>

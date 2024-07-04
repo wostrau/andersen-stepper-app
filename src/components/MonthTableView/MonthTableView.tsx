@@ -1,5 +1,4 @@
 import React from 'react';
-import { parseISO } from 'date-fns';
 import './MonthTable/MonthTable.css';
 import { Grid } from '@mui/material';
 import { Appointment } from './MonthTableView.types';
@@ -10,6 +9,7 @@ interface MonthTableViewProps {
   selectedDate: Date | null;
   onDateSelect: (day: Date) => void;
   nonWorkingDates: Date[];
+  appointments: Appointment[];
 }
 
 export const MonthTableView: React.FC<MonthTableViewProps> = ({
@@ -17,25 +17,8 @@ export const MonthTableView: React.FC<MonthTableViewProps> = ({
   selectedDate,
   onDateSelect,
   nonWorkingDates,
+  appointments,
 }) => {
-  const appointments: Appointment[] = [
-    {
-      appointmentDate: parseISO('2024-07-18'),
-      appointmentTime: '10:00',
-      patientName: 'John Doe',
-    },
-    {
-      appointmentDate: parseISO('2024-07-18'),
-      appointmentTime: '14:00',
-      patientName: 'Jane Smith',
-    },
-    {
-      appointmentDate: parseISO('2024-07-19'),
-      appointmentTime: '09:00',
-      patientName: 'Alice Johnson',
-    },
-  ];
-
   const handleDateSelect = (date: Date) => {
     onDateSelect(date);
     console.log('Selected Date >>>', date);
@@ -46,9 +29,9 @@ export const MonthTableView: React.FC<MonthTableViewProps> = ({
       <MonthTableMaterial
         month={month}
         selectedDate={selectedDate}
-        appointments={appointments}
+        onDateSelect={handleDateSelect}
         nonWorkingDays={nonWorkingDates}
-        onDateClick={handleDateSelect}
+        appointments={appointments}
       />
     </Grid>
   );

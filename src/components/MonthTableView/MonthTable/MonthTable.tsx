@@ -9,7 +9,7 @@ import {
   isSameMonth,
   isSameDay,
 } from 'date-fns';
-import './MonthTable.css';
+// import './MonthTable.css';
 import classNames from 'classnames';
 
 interface Appointment {

@@ -1,9 +1,5 @@
 import { useMemo } from 'react';
-import {
-  isSameDay,
-  isSameMonth
-} from 'date-fns';
-
+import { isSameDay, isSameMonth } from 'date-fns';
 
 export const useSelectedDay = (date: Date, selectedDate: Date | null) => {
   return useMemo(
