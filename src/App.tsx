@@ -13,11 +13,13 @@ import {
   subMonths,
 } from 'date-fns';
 import { Appointment } from './components/MonthTableView/MonthTableView.types';
+import TimeTable from './components/Timetable/Timetable';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [showTimetable, setShowTimetable] = useState<boolean>(false);
 
   const currentDate = new Date();
   const [yearView, setYearView] = useState<boolean>(false);
@@ -110,8 +112,17 @@ function App() {
         >
           {yearView ? 'Next Year' : 'Next Month'}
         </Button>
+        <Button
+          variant='contained'
+          color="secondary"
+          // sx={btnStyles}
+          onClick={() => setShowTimetable((prevView) => !prevView)
+          }
+        >
+          SHOW TIMETABLE
+        </Button>
       </Box>
-      {yearView && (
+      {!showTimetable && yearView && (
         <Calendar
           year={selectedYear}
           selectedDate={selectedDate}
@@ -119,7 +130,7 @@ function App() {
           nonWorkingDates={nonWorkingDates}
         />
       )}
-      {!yearView && (
+      {!showTimetable && !yearView && (
         <MonthTableView
           month={selectedMonth}
           selectedDate={selectedDate}
@@ -128,6 +139,7 @@ function App() {
           appointments={appointments}
         />
       )}
+      {showTimetable && <Box sx={{ padding: '20px' }}><TimeTable/></Box>}
     </div>
   );
 }
