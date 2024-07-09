@@ -13,7 +13,7 @@ import {
   subMonths,
 } from 'date-fns';
 import { Appointment } from './components/MonthTableView/MonthTableView.types';
-import TimeTable from './components/Timetable/Timetable';
+import TimeTable from './components/ScheduleDayView/Timetable';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
