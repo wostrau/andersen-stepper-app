@@ -13,7 +13,7 @@ import {
   subMonths,
 } from 'date-fns';
 import { Appointment } from './components/MonthTableView/MonthTableView.types';
-import TimeTable from './components/ScheduleDayView/Timetable';
+import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -57,6 +57,16 @@ function App() {
         appointmentDate: parseISO('2024-07-19'),
         appointmentTime: '09:00',
         patientName: 'Alice Johnson',
+      },
+      {
+        appointmentDate: parseISO('2024-07-11'),
+        appointmentTime: '11:00',
+        patientName: 'John Doe',
+      },
+      {
+        appointmentDate: parseISO('2024-07-11'),
+        appointmentTime: '15:00',
+        patientName: 'Jane Smith',
       },
     ];
 
@@ -114,10 +124,9 @@ function App() {
         </Button>
         <Button
           variant='contained'
-          color="secondary"
+          color='secondary'
           // sx={btnStyles}
-          onClick={() => setShowTimetable((prevView) => !prevView)
-          }
+          onClick={() => setShowTimetable((prevView) => !prevView)}
         >
           SHOW TIMETABLE
         </Button>
@@ -139,7 +148,11 @@ function App() {
           appointments={appointments}
         />
       )}
-      {showTimetable && <Box sx={{ padding: '20px' }}><TimeTable/></Box>}
+      {showTimetable && (
+        <Box sx={{ padding: '20px' }}>
+          <ScheduleDayView />
+        </Box>
+      )}
     </div>
   );
 }
