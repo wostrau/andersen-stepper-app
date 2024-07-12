@@ -4,6 +4,7 @@ import { TimeSlotsProps } from './TimeSlots.model';
 import { styles } from './TimeSlots.styles';
 import { TimeSlot } from '../TimeSlot/TimeSlot';
 import { useTimeSlots } from './TimeSlots.utils';
+import { format } from 'date-fns';
 
 export const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedTimeSlot,
@@ -16,14 +17,14 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({
     <>
       {timeSlots.map((timeSlot, index) => (
         <TableRow key={index}>
-          <TableCell sx={styles.tableCellStyles}>{timeSlot.slot}</TableCell>
+          <TableCell sx={styles.tableCellStyles}>{format(timeSlot.slot, 'HH:mm')}</TableCell>
           <TimeSlot
             slotsTime={timeSlot.slot}
-            currentDay={rest.currentDay}
-            nonWorkingSlot={timeSlot.nonWorkingSlot}
             appointment={timeSlot.appointment}
+            nonWorkingSlot={timeSlot.nonWorkingSlot}
             selectedTimeSlot={selectedTimeSlot}
             onTimeSlotSelect={onTimeSlotSelect}
+            currentDay={rest.currentDay}
           />
         </TableRow>
       ))}

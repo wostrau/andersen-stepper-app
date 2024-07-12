@@ -26,7 +26,8 @@ export const styles = {
   },
   appointmentTableCellStyles: {
     height: '48px',
-    borderBottom: 'none',
+    border: '1px solid #F2F4F7',
+    // borderBottom: 'none',
     padding: 0,
   },
   redLineStyles: {
@@ -48,13 +49,13 @@ export const styles = {
   },
   appointmentBoxStyles: {
     backgroundColor: '#1BBDD4',
-    borderRadius: '8px',
-    color: 'white',
-    padding: '8px',
+    borderRadius: '4px',
+    color: '#EEFCFD',
+    padding: '0 2px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: '100%',
     width: '100%',
     boxSizing: 'border-box',
@@ -64,11 +65,31 @@ export const styles = {
   },
   nonWorkingBoxStyles: {
     backgroundColor: '#d3d3d3',
-    borderRadius: '8px',
+    borderRadius: '4px',
+    color: '#576072',
     height: '100%',
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'flex-start',
     justifyContent: 'center',
+  },
+  appointmentTitleStyles: {
+    fontWeight: 700,
+  },
+  patientVerticalBar: {
+    backgroundColor: '#EEFCFD',
+    borderRadius: '2px',
+    width: '4px',
+    height: '43px',
+    marginRight: '8px',
+  },
+  patientContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    padding: '2px',
+  },
+  nonWorkingVerticalBar: {
+    backgroundColor: '#576072',
   },
 };

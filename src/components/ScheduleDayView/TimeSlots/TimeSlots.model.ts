@@ -19,7 +19,7 @@ export interface UseTimeSlotsProps {
 }
 
 export type Slot = {
-  slot: string;
+  slot: Date;
   nonWorkingSlot: boolean;
   appointment: null | { patientName: string };
 };

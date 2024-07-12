@@ -3,8 +3,8 @@ import { TimeIndicatorProps } from './TimeIndicator.model';
 import { useTimeIndicatorPosition } from './TimeIndicator.utils';
 import { styles } from './TimeIndicator.styles';
 
-export const CurrentTimeIndicator: React.FC<TimeIndicatorProps> = ({
-  startHour = 8,
+export const TimeIndicator: React.FC<TimeIndicatorProps> = ({
+  startHour = 10,
   endHour = 20,
 }) => {
   const getTimeIndicatorPosition = useTimeIndicatorPosition(startHour, endHour);

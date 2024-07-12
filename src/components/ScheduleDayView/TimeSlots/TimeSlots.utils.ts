@@ -6,30 +6,30 @@ import {
   addHours,
   isSameMinute,
   isEqual,
+  setHours,
 } from 'date-fns';
 import { UseTimeSlotsProps, Slot } from './TimeSlots.model';
 
-export const useTimeSlots = (props: UseTimeSlotsProps): Slot[] => {
+export const useTimeSlots = (values: UseTimeSlotsProps): Slot[] => {
   const {
     startHour = 10,
     endHour = 20,
     currentDay,
     nonWorkingTimeSlots,
     appointments,
-  } = props;
+  } = values;
   const [timeSlots, setTimeSlots] = useState<Slot[]>([]);
 
   useEffect(() => {
     const generateTimeSlots = (): Slot[] => {
       const slots: Slot[] = [];
 
-      const startTime = startOfDay(currentDay);
-      const endTime = addHours(startOfDay(currentDay), endHour - startHour + 1);
+      const startTime = setHours(startOfDay(currentDay), startHour);
+      const endTime = addHours(startOfDay(currentDay), endHour);
 
       let currentTime = startTime;
 
-      while (currentTime < endTime) {
-        const timeSlot = format(currentTime, 'HH:mm');
+      while (currentTime <= endTime) {
         const isNonWorkingSlot = nonWorkingTimeSlots.some((slot) =>
           isSameMinute(slot, currentTime)
         );
@@ -43,7 +43,7 @@ export const useTimeSlots = (props: UseTimeSlotsProps): Slot[] => {
           : null;
 
         slots.push({
-          slot: timeSlot,
+          slot: currentTime,
           nonWorkingSlot: isNonWorkingSlot,
           appointment: appointmentInfo,
         });

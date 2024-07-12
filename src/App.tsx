@@ -18,8 +18,9 @@ import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
+  const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [showTimetable, setShowTimetable] = useState<boolean>(false);
+  const [showTimetable, setShowTimetable] = useState<boolean>(true);
 
   const currentDate = new Date();
   const [yearView, setYearView] = useState<boolean>(false);
@@ -42,9 +43,19 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const mockNonWorkingTimeSlots = [
+      new Date(2024, 6, 12, 12, 0, 0),
+      new Date(2024, 6, 12, 16, 0, 0),
+      new Date(2024, 6, 12, 18, 0, 0),
+    ];
+
+    setNonWorkingTimeSlots(mockNonWorkingTimeSlots);
+  }, []);
+
+  useEffect(() => {
     const appointments: Appointment[] = [
       {
-        appointmentDate: parseISO('2024-07-18'),
+        appointmentDate: new Date(2024, 6, 12, 10, 0, 0),
         appointmentTime: '10:00',
         patientName: 'John Doe',
       },
@@ -84,6 +95,9 @@ function App() {
     border: `1px solid ${btnColor}`,
     borderRadius: '4px',
   };
+
+  // console.log('non working slots >>>', nonWorkingTimeSlots);
+  // console.log('appointments >>>', appointments);
 
   return (
     <div className='App'>
@@ -150,7 +164,13 @@ function App() {
       )}
       {showTimetable && (
         <Box sx={{ padding: '20px' }}>
-          <ScheduleDayView />
+          <ScheduleDayView
+            selectedDay={selectedDate}
+            selectedTimeSlot={null}
+            onTimeSlotSelect={() => {}}
+            nonWorkingTimeSlots={nonWorkingTimeSlots}
+            appointments={appointments}
+          />
         </Box>
       )}
     </div>

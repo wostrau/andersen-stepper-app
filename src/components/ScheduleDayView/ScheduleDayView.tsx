@@ -9,7 +9,7 @@ import {
   Paper,
 } from '@mui/material';
 import { format } from 'date-fns';
-import { CurrentTimeIndicator } from './TimeIndicator/TimeIndicator';
+// import { TimeIndicator } from './TimeIndicator';
 import { ScheduleDayViewProps } from './ScheduleDayView.model';
 import { TimeSlots } from './TimeSlots/TimeSlots';
 import { styles } from './ScheduleDayView.styles';
@@ -28,7 +28,6 @@ export const ScheduleDayView: React.FC<ScheduleDayViewProps> = ({
       elevation={0}
       sx={styles.tableContainerStyles}
     >
-      <CurrentTimeIndicator />
       <Table sx={styles.tableStyles}>
         <TableHead>
           <TableRow>
@@ -42,6 +41,8 @@ export const ScheduleDayView: React.FC<ScheduleDayViewProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
+          {/* <TimeIndicator /> */}
+
           <TimeSlots
             startHour={startHour}
             endHour={endHour}

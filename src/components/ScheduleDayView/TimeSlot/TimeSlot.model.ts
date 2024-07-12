@@ -1,5 +1,5 @@
 export interface TimeSlotProps {
-  slotsTime: string
+  slotsTime: Date;
   currentDay: Date;
   nonWorkingSlot: boolean;
   appointment: null | { patientName: string };
