@@ -17,6 +17,7 @@ import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<Date | null>(null);
   const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
   const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -44,9 +45,9 @@ function App() {
 
   useEffect(() => {
     const mockNonWorkingTimeSlots = [
-      new Date(2024, 6, 12, 12, 0, 0),
-      new Date(2024, 6, 12, 16, 0, 0),
-      new Date(2024, 6, 12, 18, 0, 0),
+      new Date(2024, 6, 13, 12, 0, 0),
+      new Date(2024, 6, 13, 16, 0, 0),
+      new Date(2024, 6, 13, 18, 0, 0),
     ];
 
     setNonWorkingTimeSlots(mockNonWorkingTimeSlots);
@@ -55,28 +56,33 @@ function App() {
   useEffect(() => {
     const appointments: Appointment[] = [
       {
-        appointmentDate: new Date(2024, 6, 12, 10, 0, 0),
+        appointmentDate: new Date(2024, 6, 13, 10, 0, 0),
         appointmentTime: '10:00',
+        appointmentDuration: '00:30',
         patientName: 'John Doe',
       },
       {
-        appointmentDate: parseISO('2024-07-18'),
-        appointmentTime: '14:00',
+        appointmentDate: new Date(2024, 6, 13, 17, 0, 0),
+        appointmentTime: '17:00',
+        appointmentDuration: '00:30',
         patientName: 'Jane Smith',
       },
       {
         appointmentDate: parseISO('2024-07-19'),
         appointmentTime: '09:00',
+        appointmentDuration: '00:30',
         patientName: 'Alice Johnson',
       },
       {
         appointmentDate: parseISO('2024-07-11'),
         appointmentTime: '11:00',
+        appointmentDuration: '00:30',
         patientName: 'John Doe',
       },
       {
         appointmentDate: parseISO('2024-07-11'),
         appointmentTime: '15:00',
+        appointmentDuration: '00:30',
         patientName: 'Jane Smith',
       },
     ];
@@ -86,6 +92,11 @@ function App() {
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
+  };
+
+  const handlerTimeSlotSelect = (timeSlot: Date) => {
+    setSelectedTimeSlot(timeSlot);
+    console.log('selected time slot >>>', timeSlot);
   };
 
   const btnColor = '#0d323f';
@@ -166,8 +177,8 @@ function App() {
         <Box sx={{ padding: '20px' }}>
           <ScheduleDayView
             selectedDay={selectedDate}
-            selectedTimeSlot={null}
-            onTimeSlotSelect={() => {}}
+            selectedTimeSlot={selectedTimeSlot}
+            onTimeSlotSelect={handlerTimeSlotSelect}
             nonWorkingTimeSlots={nonWorkingTimeSlots}
             appointments={appointments}
           />

@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
 import {
-  format,
   addMinutes,
   startOfDay,
   addHours,
   isSameMinute,
   isEqual,
   setHours,
+  parse,
 } from 'date-fns';
 import { UseTimeSlotsProps, Slot } from './TimeSlots.model';
+
+const durationToMinutes = (duration: string) => {
+  const parsedTime = parse(duration, 'HH:mm', new Date());
+  const minutes = parsedTime.getMinutes();
+  const hours = parsedTime.getHours();
+
+  return hours * 60 + minutes;
+};
 
 export const useTimeSlots = (values: UseTimeSlotsProps): Slot[] => {
   const {
@@ -39,7 +47,10 @@ export const useTimeSlots = (values: UseTimeSlotsProps): Slot[] => {
         );
 
         const appointmentInfo = matchingAppointment
-          ? { patientName: matchingAppointment.patientName }
+          ? {
+              patientName: matchingAppointment.patientName,
+              duration: durationToMinutes(matchingAppointment.appointmentDuration),
+            }
           : null;
 
         slots.push({

@@ -1,51 +1,40 @@
-import { TableCell, Box, Typography } from '@mui/material';
-import { isBefore, format } from 'date-fns';
-import { TimeSlotProps } from './TimeSlot.model';
-import { styles } from './TimeSlot.styles';
+import { Box, TableCell } from '@mui/material';
 import { TimeIndicator } from '../TimeIndicator';
+import { TimeSlotProps } from './TimeSlot.model';
+import { useTimeSlotStatus } from './TimeSlot.utils';
+import { AppointmentSlot, NonWorkingSlot } from '../Slots/';
+import { styles } from './TimeSlot.styles';
 
 export const TimeSlot: React.FC<TimeSlotProps> = ({
   appointment,
-  currentDay,
-  nonWorkingSlot,
+  isNonWorkingSlot,
   onTimeSlotSelect,
   selectedTimeSlot,
   slotsTime,
 }) => {
-  const currentTime = new Date();
-  const isPassed = isBefore(slotsTime, currentTime);
-  console.log('isPassed >>>', isPassed);
+  const { isSlotRange, isPassedTime, isSelectedSlot } = useTimeSlotStatus(
+    slotsTime,
+    selectedTimeSlot
+  );
+  const handlerTimeSlotSelect = () => {
+    onTimeSlotSelect(slotsTime);
+  };
 
   return (
-    <TableCell sx={styles.appointmentTableCellStyles}>
-      <TimeIndicator />
-      <Box
-        sx={{
-          ...((appointment || nonWorkingSlot) && styles.appointmentBoxStyles),
-          // ...(isPassed && styles.passedBoxStyles),
-          ...(nonWorkingSlot && styles.nonWorkingBoxStyles),
-        }}
-      >
-        {(appointment || nonWorkingSlot) && (
-          <Box sx={styles.patientContainer}>
-            <Box sx={{...styles.patientVerticalBar, ...(nonWorkingSlot && styles.nonWorkingVerticalBar)}} />
-            <Box>
-              {appointment && (
-                <Box sx={styles.appointmentTitleStyles}>
-                  {appointment.patientName}
-                </Box>
-              )}
-              {nonWorkingSlot && (
-                <Box sx={styles.appointmentTitleStyles}>
-                  Non-working
-                </Box>
-              )}
-              <Box>{format(slotsTime, 'HH:mm')} - 30 min</Box>
-            </Box>
-          </Box>
-        )}
-      </Box>
-      {/* {nonWorkingSlot && <Box sx={styles.nonWorkingBoxStyles}>Non-working</Box>} */}
+    <TableCell
+      sx={styles.appointmentTableCellStyles}
+      onClick={handlerTimeSlotSelect}
+    >
+      {isSlotRange && <TimeIndicator />}
+      {appointment && (
+        <AppointmentSlot
+          slotsTime={slotsTime}
+          appointment={appointment}
+          isSelected={isSelectedSlot}
+          isPassed={isPassedTime}
+        />
+      )}
+      {isNonWorkingSlot && <NonWorkingSlot slotsTime={slotsTime} />}
     </TableCell>
   );
 };

@@ -9,7 +9,7 @@ export const styles = {
   timeIndicatorBeforeStyles: {
     content: '""',
     position: 'absolute',
-    left: '0px',
+    left: '-5px',
     top: '-4px',
     width: '10px',
     height: '10px',

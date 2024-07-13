@@ -21,10 +21,9 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({
           <TimeSlot
             slotsTime={timeSlot.slot}
             appointment={timeSlot.appointment}
-            nonWorkingSlot={timeSlot.nonWorkingSlot}
+            isNonWorkingSlot={timeSlot.nonWorkingSlot}
             selectedTimeSlot={selectedTimeSlot}
             onTimeSlotSelect={onTimeSlotSelect}
-            currentDay={rest.currentDay}
           />
         </TableRow>
       ))}

@@ -8,7 +8,7 @@ export const TimeIndicator: React.FC<TimeIndicatorProps> = ({
   endHour = 20,
 }) => {
   const getTimeIndicatorPosition = useTimeIndicatorPosition(startHour, endHour);
-
+  console.log('indicator renders');
   return (
     <Box
       sx={{

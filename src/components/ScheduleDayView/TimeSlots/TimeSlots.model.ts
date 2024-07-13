@@ -21,5 +21,5 @@ export interface UseTimeSlotsProps {
 export type Slot = {
   slot: Date;
   nonWorkingSlot: boolean;
-  appointment: null | { patientName: string };
+  appointment: null | { patientName: string; duration: string };
 };

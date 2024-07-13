@@ -1,8 +1,13 @@
 export interface TimeSlotProps {
   slotsTime: Date;
-  currentDay: Date;
-  nonWorkingSlot: boolean;
-  appointment: null | { patientName: string };
+  isNonWorkingSlot: boolean;
+  appointment: null | { patientName: string; duration: string };
   selectedTimeSlot: Date | null;
   onTimeSlotSelect: (date: Date) => void;
+}
+
+export interface TimeSlotStatus {
+  isSlotRange: boolean;
+  isPassedTime: boolean;
+  isSelectedSlot: boolean;
 }

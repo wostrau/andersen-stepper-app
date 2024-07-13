@@ -21,7 +21,6 @@ export const MonthTableView: React.FC<MonthTableViewProps> = ({
 }) => {
   const handleDateSelect = (date: Date) => {
     onDateSelect(date);
-    console.log('Selected Date >>>', date);
   };
 
   return (

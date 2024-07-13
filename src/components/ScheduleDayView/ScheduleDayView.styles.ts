@@ -2,17 +2,20 @@ export const styles = {
   tableContainerStyles: {
     minWidth: '964px',
     // height: '1341px',
-    borderRadius: '16px',
+    // borderRadius: '16px',
+
     overflow: 'hidden',
     position: 'relative',
   },
   tableStyles: {
-    borderCollapse: 'collapse',
+
+    // borderCollapse: 'collapse',
     borderStyle: 'hidden',
     borderSpacing: 0,
     height: '100%',
   },
   tableCellStyles: {
+    border: '1px solid red',
     height: '48px',
     borderBottom: 'none',
     fontSize: '16px',

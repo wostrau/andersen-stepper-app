@@ -9,9 +9,8 @@ import {
   Paper,
 } from '@mui/material';
 import { format } from 'date-fns';
-// import { TimeIndicator } from './TimeIndicator';
+import { TimeSlots } from './TimeSlots';
 import { ScheduleDayViewProps } from './ScheduleDayView.model';
-import { TimeSlots } from './TimeSlots/TimeSlots';
 import { styles } from './ScheduleDayView.styles';
 
 export const ScheduleDayView: React.FC<ScheduleDayViewProps> = ({
@@ -41,8 +40,6 @@ export const ScheduleDayView: React.FC<ScheduleDayViewProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* <TimeIndicator /> */}
-
           <TimeSlots
             startHour={startHour}
             endHour={endHour}
