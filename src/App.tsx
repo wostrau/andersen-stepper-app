@@ -14,6 +14,7 @@ import {
 } from 'date-fns';
 import { Appointment } from './components/MonthTableView/MonthTableView.types';
 import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
+import { ScheduleWeekView } from './components/ScheduleWeekView/ScheduleWeekView';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -24,7 +25,8 @@ function App() {
   const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
   const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [showTimetable, setShowTimetable] = useState<boolean>(true);
+  const [showTimetable, setShowTimetable] = useState<boolean>(false);
+  const [showWeekTable, setShowWeekTable] = useState<boolean>(true);
 
   const currentDate = new Date();
   const [yearView, setYearView] = useState<boolean>(false);
@@ -113,6 +115,34 @@ function App() {
   // console.log('non working slots >>>', nonWorkingTimeSlots);
   // console.log('appointments >>>', appointments);
 
+  const appointmentsForWeek = [
+    {
+      appointmentDate: new Date(2024, 6, 14, 10, 0, 0),
+      appointmentTime: '10:00',
+      appointmentDuration: '00:30',
+      patientName: 'John Doe',
+    },
+    {
+      appointmentDate: new Date(2024, 6, 14, 17, 0, 0),
+      appointmentTime: '17:00',
+      appointmentDuration: '00:30',
+      patientName: 'Jane Smith',
+    },
+    {
+      appointmentDate: new Date(2024, 6, 14, 20, 0, 0),
+      appointmentTime: '20:00',
+      appointmentDuration: '00:30',
+      patientName: 'Jackie Chan',
+    },
+    {
+      appointmentDate: '',
+      appointmentTime: '',
+      appointmentDuration: '',
+      patientName: '',
+      nonWorkingSlot: new Date(2024, 6, 12, 0, 0, 0),
+    },
+  ];
+
   return (
     <div className='App'>
       <Box sx={{ mb: 7 }}>
@@ -159,7 +189,7 @@ function App() {
           SHOW TIMETABLE
         </Button>
       </Box>
-      {!showTimetable && yearView && (
+      {!showTimetable && yearView && !showWeekTable && (
         <Calendar
           year={selectedYear}
           selectedDate={selectedDate}
@@ -167,7 +197,7 @@ function App() {
           nonWorkingDates={nonWorkingDates}
         />
       )}
-      {!showTimetable && !yearView && (
+      {!showTimetable && !yearView && !showWeekTable && (
         <MonthTableView
           month={selectedMonth}
           selectedDate={selectedDate}
@@ -185,6 +215,11 @@ function App() {
             nonWorkingTimeSlots={nonWorkingTimeSlots}
             appointments={appointments}
           />
+        </Box>
+      )}
+      {showWeekTable && (
+        <Box sx={{ padding: '20px' }}>
+          <ScheduleWeekView appointments={appointmentsForWeek} />
         </Box>
       )}
     </div>
