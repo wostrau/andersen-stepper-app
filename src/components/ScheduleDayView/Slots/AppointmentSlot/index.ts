@@ -1,1 +1,1 @@
-export * from './AppointmnetSlot'
+export * from './AppointmentSlot';

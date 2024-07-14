@@ -18,6 +18,9 @@ import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<Date | null>(null);
+
+  console.log('selected time slot >>>', selectedTimeSlot);
+
   const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
   const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -45,9 +48,9 @@ function App() {
 
   useEffect(() => {
     const mockNonWorkingTimeSlots = [
-      new Date(2024, 6, 13, 12, 0, 0),
-      new Date(2024, 6, 13, 16, 0, 0),
-      new Date(2024, 6, 13, 18, 0, 0),
+      new Date(2024, 6, 14, 12, 0, 0),
+      new Date(2024, 6, 14, 16, 0, 0),
+      new Date(2024, 6, 14, 18, 0, 0),
     ];
 
     setNonWorkingTimeSlots(mockNonWorkingTimeSlots);
@@ -56,13 +59,13 @@ function App() {
   useEffect(() => {
     const appointments: Appointment[] = [
       {
-        appointmentDate: new Date(2024, 6, 13, 10, 0, 0),
+        appointmentDate: new Date(2024, 6, 14, 10, 0, 0),
         appointmentTime: '10:00',
         appointmentDuration: '00:30',
         patientName: 'John Doe',
       },
       {
-        appointmentDate: new Date(2024, 6, 13, 17, 0, 0),
+        appointmentDate: new Date(2024, 6, 14, 17, 0, 0),
         appointmentTime: '17:00',
         appointmentDuration: '00:30',
         patientName: 'Jane Smith',

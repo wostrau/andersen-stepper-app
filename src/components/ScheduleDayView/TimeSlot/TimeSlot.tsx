@@ -1,4 +1,4 @@
-import { Box, TableCell } from '@mui/material';
+import { TableCell } from '@mui/material';
 import { TimeIndicator } from '../TimeIndicator';
 import { TimeSlotProps } from './TimeSlot.model';
 import { useTimeSlotStatus } from './TimeSlot.utils';
@@ -12,12 +12,13 @@ export const TimeSlot: React.FC<TimeSlotProps> = ({
   selectedTimeSlot,
   slotsTime,
 }) => {
-  const { isSlotRange, isPassedTime, isSelectedSlot } = useTimeSlotStatus(
-    slotsTime,
-    selectedTimeSlot
-  );
+  const { isSlotRange, isPassedTime, isSelectedSlot, isSameDayAsCurrent } =
+    useTimeSlotStatus(slotsTime, selectedTimeSlot);
+
   const handlerTimeSlotSelect = () => {
-    onTimeSlotSelect(slotsTime);
+    if (!isPassedTime) {
+      onTimeSlotSelect(slotsTime);
+    }
   };
 
   return (
@@ -25,7 +26,7 @@ export const TimeSlot: React.FC<TimeSlotProps> = ({
       sx={styles.appointmentTableCellStyles}
       onClick={handlerTimeSlotSelect}
     >
-      {isSlotRange && <TimeIndicator />}
+      {isSameDayAsCurrent && isSlotRange && <TimeIndicator />}
       {appointment && (
         <AppointmentSlot
           slotsTime={slotsTime}

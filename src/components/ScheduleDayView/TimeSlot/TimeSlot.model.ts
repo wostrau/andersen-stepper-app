@@ -10,4 +10,5 @@ export interface TimeSlotStatus {
   isSlotRange: boolean;
   isPassedTime: boolean;
   isSelectedSlot: boolean;
+  isSameDayAsCurrent: boolean;
 }

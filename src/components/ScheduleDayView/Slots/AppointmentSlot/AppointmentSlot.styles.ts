@@ -8,7 +8,7 @@ export const styles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: '100%',
+    height: '48px',
     width: '100%',
   },
   appointmentTitle: {
@@ -51,5 +51,21 @@ export const styles = {
   },
   passedInfoColor: {
     color: '#8B94A5',
+  },
+  selectedContainerBox: {
+    border: '2px solid #1BBDD4',
+    backgroundColor: '#EEFCFD',
+  },
+  selectedBar: {
+    backgroundColor: '#1E829C',
+  },
+  selectedTitleColor: {
+    color: '#1E829C',
+  },
+  selectedInfoColor: {
+    color: '#EEFCFD',
+  },
+  selectedDot: {
+    backgroundColor: '#EEFCFD',
   },
 };

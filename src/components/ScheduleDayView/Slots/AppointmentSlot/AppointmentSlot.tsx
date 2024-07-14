@@ -14,12 +14,14 @@ export const AppointmentSlot: React.FC<AppointmentSlotProps> = ({
       sx={{
         ...styles.containerBox,
         ...(isPassed && styles.passedContainer),
+        ...(isSelected && styles.selectedContainerBox),
       }}
     >
       <Box
         sx={{
           ...styles.verticalBar,
           ...(isPassed && styles.passedBarAndDot),
+          ...(isSelected && styles.selectedBar),
         }}
       />
       <Box>
@@ -27,12 +29,17 @@ export const AppointmentSlot: React.FC<AppointmentSlotProps> = ({
           sx={{
             ...styles.appointmentTitle,
             ...(isPassed && styles.passedTitleColor),
+            ...(isSelected && styles.selectedTitleColor),
           }}
         >
           {appointment.patientName}
         </Typography>
         <Box sx={styles.appointmentInfo}>
-          <Typography sx={{ ...(isPassed && styles.passedInfoColor) }}>
+          <Typography
+            sx={{
+              ...((isPassed || isSelected) && styles.passedInfoColor),
+            }}
+          >
             {format(slotsTime, 'HH:mm')}
           </Typography>
           <Box sx={styles.dividingDotContainer}>
@@ -40,10 +47,16 @@ export const AppointmentSlot: React.FC<AppointmentSlotProps> = ({
               sx={{
                 ...styles.dividingDot,
                 ...(isPassed && styles.passedBarAndDot),
+                ...(isSelected && styles.selectedDot),
               }}
             />
           </Box>
-          <Typography sx={{ ...(isPassed && styles.passedInfoColor) }}>
+          <Typography
+            sx={{
+              ...(isPassed && styles.passedInfoColor),
+              ...(isSelected && styles.selectedInfoColor),
+            }}
+          >
             {appointment.duration} min
           </Typography>
         </Box>

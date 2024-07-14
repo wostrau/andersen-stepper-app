@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { addMinutes, isAfter, isBefore, isSameDay } from 'date-fns';
+import { addMinutes, isAfter, isBefore, isEqual, isSameDay } from 'date-fns';
 import { TimeSlotStatus } from './TimeSlot.model';
 
 export const useTimeSlotStatus = (
@@ -21,13 +21,19 @@ export const useTimeSlotStatus = (
   );
 
   const isSelectedSlot = useMemo(
-    () => selectedTimeSlot !== null && isSameDay(selectedTimeSlot, slotsTime),
+    () => selectedTimeSlot !== null && isEqual(selectedTimeSlot, slotsTime),
     [selectedTimeSlot, slotsTime]
+  );
+
+  const isSameDayAsCurrent = useMemo(
+    () => isSameDay(currentTime, slotsTime),
+    [currentTime, slotsTime]
   );
 
   return {
     isSlotRange,
     isPassedTime,
     isSelectedSlot,
+    isSameDayAsCurrent,
   };
 };
