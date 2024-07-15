@@ -11,7 +11,7 @@ export const ScheduleWeekView: React.FC<ScheduleWeekViewProps> = ({ appointments
   const startHour = 8;
   const endHour = 20;
 
-  const [currentWeek, setCurrentWeek] = useState<Date>(selectedDay || new Date());
+  const [currentWeek, setCurrentWeek] = useState<Date>(selectedDay ?? new Date());
 
   const startOfCurrentWeek = useMemo(() => startOfWeek(currentWeek, { weekStartsOn: 1 }), [currentWeek]);
   // const endOfCurrentWeek = useMemo(() => endOfWeek(currentWeek, { weekStartsOn: 1 }), [currentWeek]);

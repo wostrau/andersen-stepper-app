@@ -2,40 +2,50 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import { MonthTableView } from './components/MonthTableView/MonthTableView';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { Calendar } from './components/NewCalendar';
 import {
+  addDays,
   addMonths,
-  format,
   getYear,
   parseISO,
   startOfMonth,
+  startOfWeek,
   subMonths,
 } from 'date-fns';
 import { Appointment } from './components/MonthTableView/MonthTableView.types';
 import { ScheduleDayView } from './components/ScheduleDayView/ScheduleDayView';
 import { ScheduleWeekView } from './components/ScheduleWeekView/ScheduleWeekView';
+import { ControlPanel } from './components/ControlPanel/ControlPanel';
+import { fourSchedules } from './components/ControlPanel/ControlPanel.model';
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<Date | null>(null);
-
-  console.log('selected time slot >>>', selectedTimeSlot);
-
-  const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
-  const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [showTimetable, setShowTimetable] = useState<boolean>(false);
-  const [showWeekTable, setShowWeekTable] = useState<boolean>(true);
-
   const currentDate = new Date();
-  const [yearView, setYearView] = useState<boolean>(false);
+
+  const [showYearView, setShowYearView] = useState<boolean>(false);
+  const [showMonthView, setShowMonthView] = useState<boolean>(false);
+  const [showWeekView, setShowWeekView] = useState<boolean>(true);
+  const [showDayView, setShowDayView] = useState<boolean>(false);
+
   const [selectedYear, setSelectedYear] = useState<number>(
     getYear(currentDate)
   );
   const [selectedMonth, setSelectedMonth] = useState<Date>(
     startOfMonth(currentDate)
   );
+  const [selectedWeek, setSelectedWeek] = useState<Date>(
+    startOfWeek(currentDate, { weekStartsOn: 1 })
+  );
+
+  const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
+  console.log('selected date >>>', selectedDate);
+
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<Date | null>(null);
+  console.log('selected time slot >>>', selectedTimeSlot);
+
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [nonWorkingDates, setNonWorkingDates] = useState<Date[]>([]);
+  const [nonWorkingTimeSlots, setNonWorkingTimeSlots] = useState<Date[]>([]);
 
   useEffect(() => {
     const mockNonWorkingDates = [
@@ -101,95 +111,89 @@ function App() {
 
   const handlerTimeSlotSelect = (timeSlot: Date) => {
     setSelectedTimeSlot(timeSlot);
-    console.log('selected time slot >>>', timeSlot);
   };
 
-  const btnColor = '#0d323f';
-  const btnStyles = {
-    m: 1,
-    color: btnColor,
-    border: `1px solid ${btnColor}`,
-    borderRadius: '4px',
+  const handleGoPrevious = (value: fourSchedules) => {
+    switch (value) {
+      case 'year':
+        setSelectedYear((prevYear) => prevYear - 1);
+        break;
+      case 'month':
+        setSelectedMonth((prevMonth) => subMonths(prevMonth, 1));
+        break;
+      case 'week':
+        setSelectedWeek((prevMonth) => addDays(prevMonth, -7));
+        break;
+      case 'day':
+        setSelectedDate((prevDate) => addDays(prevDate, -1));
+        break;
+    }
   };
 
-  // console.log('non working slots >>>', nonWorkingTimeSlots);
-  // console.log('appointments >>>', appointments);
+  const handleGoNext = (value: fourSchedules) => {
+    switch (value) {
+      case 'year':
+        setSelectedYear((prevYear) => prevYear + 1);
+        break;
+      case 'month':
+        setSelectedMonth((prevMonth) => addMonths(prevMonth, 1));
+        break;
+      case 'week':
+        setSelectedWeek((prevMonth) => addDays(prevMonth, 7));
+        break;
+      case 'day':
+        setSelectedDate((prevDate) => addDays(prevDate, 1));
+        break;
+    }
+  };
 
-  const appointmentsForWeek = [
-    {
-      appointmentDate: new Date(2024, 6, 14, 10, 0, 0),
-      appointmentTime: '10:00',
-      appointmentDuration: '00:30',
-      patientName: 'John Doe',
-    },
-    {
-      appointmentDate: new Date(2024, 6, 14, 17, 0, 0),
-      appointmentTime: '17:00',
-      appointmentDuration: '00:30',
-      patientName: 'Jane Smith',
-    },
-    {
-      appointmentDate: new Date(2024, 6, 14, 20, 0, 0),
-      appointmentTime: '20:00',
-      appointmentDuration: '00:30',
-      patientName: 'Jackie Chan',
-    },
-    {
-      appointmentDate: '',
-      appointmentTime: '',
-      appointmentDuration: '',
-      patientName: '',
-      nonWorkingSlot: new Date(2024, 6, 12, 0, 0, 0),
-    },
-  ];
+  const handleShowYearView = () => {
+    setShowYearView(true);
+    setShowMonthView(false);
+    setShowWeekView(false);
+    setShowDayView(false);
+  };
+
+  const handleShowMonthView = () => {
+    setShowYearView(false);
+    setShowMonthView(true);
+    setShowWeekView(false);
+    setShowDayView(false);
+  };
+
+  const handleShowWeekView = () => {
+    setShowYearView(false);
+    setShowMonthView(false);
+    setShowWeekView(true);
+    setShowDayView(false);
+  };
+
+  const handleShowDayView = () => {
+    setShowYearView(false);
+    setShowMonthView(false);
+    setShowWeekView(false);
+    setShowDayView(true);
+  };
 
   return (
-    <div className='App'>
-      <Box sx={{ mb: 7 }}>
-        <Button
-          variant='outlined'
-          sx={btnStyles}
-          onClick={
-            yearView
-              ? () => setSelectedYear((prevYear) => prevYear - 1)
-              : () => setSelectedMonth((prevMonth) => subMonths(prevMonth, 1))
-          }
-        >
-          {yearView ? 'Prev Year' : 'Prev Month'}
-        </Button>
-        <Box
-          onClick={() => setYearView((prevView) => !prevView)}
-          component='span'
-          sx={{
-            m: 1,
-            color: '#1bbdd4',
-            fontSize: '16px',
-            fontWeight: '900',
-          }}
-        >
-          {yearView ? selectedYear : format(selectedMonth, 'MMMM')}
-        </Box>
-        <Button
-          variant='outlined'
-          sx={btnStyles}
-          onClick={
-            yearView
-              ? () => setYearView((prevView) => !prevView)
-              : () => setSelectedMonth((prevMonth) => addMonths(prevMonth, 1))
-          }
-        >
-          {yearView ? 'Next Year' : 'Next Month'}
-        </Button>
-        <Button
-          variant='contained'
-          color='secondary'
-          // sx={btnStyles}
-          onClick={() => setShowTimetable((prevView) => !prevView)}
-        >
-          SHOW TIMETABLE
-        </Button>
-      </Box>
-      {!showTimetable && yearView && !showWeekTable && (
+    <Box
+      className='App'
+      sx={{ padding: '20px' }}
+    >
+      <ControlPanel
+        yearView={showYearView}
+        monthView={showMonthView}
+        weekView={showWeekView}
+        dayView={showDayView}
+        showYearView={() => handleShowYearView()}
+        showMonthView={() => handleShowMonthView()}
+        showWeekView={() => handleShowWeekView()}
+        showDayView={() => handleShowDayView()}
+        goPrev={handleGoPrevious}
+        goNext={handleGoNext}
+      />
+
+      {showYearView && (
         <Calendar
           year={selectedYear}
           selectedDate={selectedDate}
@@ -197,7 +201,8 @@ function App() {
           nonWorkingDates={nonWorkingDates}
         />
       )}
-      {!showTimetable && !yearView && !showWeekTable && (
+
+      {showMonthView && (
         <MonthTableView
           month={selectedMonth}
           selectedDate={selectedDate}
@@ -206,23 +211,27 @@ function App() {
           appointments={appointments}
         />
       )}
-      {showTimetable && (
-        <Box sx={{ padding: '20px' }}>
-          <ScheduleDayView
-            selectedDay={selectedDate}
-            selectedTimeSlot={selectedTimeSlot}
-            onTimeSlotSelect={handlerTimeSlotSelect}
-            nonWorkingTimeSlots={nonWorkingTimeSlots}
-            appointments={appointments}
-          />
-        </Box>
+
+      {showWeekView && (
+        <ScheduleWeekView
+          selectedWeek={selectedWeek}
+          selectedTimeSlot={selectedTimeSlot}
+          onTimeSlotSelect={handlerTimeSlotSelect}
+          nonWorkingTimeSlots={nonWorkingTimeSlots}
+          appointments={appointments}
+        />
       )}
-      {showWeekTable && (
-        <Box sx={{ padding: '20px' }}>
-          <ScheduleWeekView appointments={appointmentsForWeek} />
-        </Box>
+
+      {showDayView && (
+        <ScheduleDayView
+          selectedDay={selectedDate}
+          selectedTimeSlot={selectedTimeSlot}
+          onTimeSlotSelect={handlerTimeSlotSelect}
+          nonWorkingTimeSlots={nonWorkingTimeSlots}
+          appointments={appointments}
+        />
       )}
-    </div>
+    </Box>
   );
 }
 
