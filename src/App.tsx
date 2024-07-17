@@ -33,9 +33,9 @@ function App() {
   const [selectedMonth, setSelectedMonth] = useState<Date>(
     startOfMonth(currentDate)
   );
-  const [selectedWeek, setSelectedWeek] = useState<Date>(
-    startOfWeek(currentDate, { weekStartsOn: 1 })
-  );
+  // const [selectedWeek, setSelectedWeek] = useState<Date>(
+  //   startOfWeek(currentDate, { weekStartsOn: 1 })
+  // );
 
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
   console.log('selected date >>>', selectedDate);
@@ -122,7 +122,7 @@ function App() {
         setSelectedMonth((prevMonth) => subMonths(prevMonth, 1));
         break;
       case 'week':
-        setSelectedWeek((prevMonth) => addDays(prevMonth, -7));
+        setSelectedDate((prevWeek) => addDays(prevWeek, -7));
         break;
       case 'day':
         setSelectedDate((prevDate) => addDays(prevDate, -1));
@@ -139,7 +139,7 @@ function App() {
         setSelectedMonth((prevMonth) => addMonths(prevMonth, 1));
         break;
       case 'week':
-        setSelectedWeek((prevMonth) => addDays(prevMonth, 7));
+        setSelectedDate((prevWeek) => addDays(prevWeek, 7));
         break;
       case 'day':
         setSelectedDate((prevDate) => addDays(prevDate, 1));
@@ -214,7 +214,7 @@ function App() {
 
       {showWeekView && (
         <ScheduleWeekView
-          selectedWeek={selectedWeek}
+          selectedDay={selectedDate}
           selectedTimeSlot={selectedTimeSlot}
           onTimeSlotSelect={handlerTimeSlotSelect}
           nonWorkingTimeSlots={nonWorkingTimeSlots}
